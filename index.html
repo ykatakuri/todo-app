@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a3d46e1993.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>ToDo App With Vue</title>
+</head>
+<body>
+    <section id="app">
+        <div class="container-lg bg-dark">
+            <p class="font-monospace text-white fs-1 fw-bold text-uppercase text-center">{{ appName }}</p>
+        </div>
+    
+        <div class="container-sm mt-5">
+            <div class="input-group">
+                <input type="text" id="todo" class="form-control text-dark">
+                <button class="btn btn-primary" type="button" @click="addTodo()">Add</button>
+            </div>
+        </div>
+
+        <div class="container-sm mt-5">
+            <h3 class="text-decoration-underline mb-3">List</h3>
+            <table class="table table-secondary table-hover" v-if="todos.length > 0">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="todo in todos">
+                    <th scope="row">{{ todo.id }}</th>
+                    <td>{{ todo.task }}</td>
+                    <td class="container-lg">
+                        <button type="button" class="btn btn-primary" v-if>Done</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+
+        <div class="container-sm mt-5">
+            <h3 class="text-decoration-underline mb-3">Completed</h3>
+            <!--<ul v-for="" v-if="">
+                <li class="text-decoration-line-through">{{  }}</li>
+            </ul>-->
+        </div>
+    </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                appName: "todo app with vue2",
+                id: 0,
+                todos: [],
+                completed: [],
+            },
+            methods: {
+                addTodo() {
+                    const inputElement = document.getElementById("todo");
+                    this.todos.push({
+                        id: ++this.id,
+                        task: inputElement.value,
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
