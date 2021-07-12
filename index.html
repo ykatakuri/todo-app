@@ -32,7 +32,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="todo in todos" v-if="!todo.isDone">
+                  <tr v-for="todo in todos" v-show="!todo.isDone">
                     <th scope="row">{{ todo.id }}</th>
                     <td>{{ todo.task }}</td>
                     <td class="container-lg">
@@ -46,7 +46,7 @@
 
         <div class="container-sm mt-5">
             <h3 class="text-decoration-underline mb-3">Completed</h3>
-            <ul v-if="todo.isDone" v-for="todo in todos">
+            <ul v-show="todo.isDone" v-for="todo in todos">
                 <li class="text-decoration-line-through">{{ todo.task }}</li>
             </ul>
         </div>
