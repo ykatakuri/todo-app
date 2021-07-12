@@ -23,7 +23,7 @@
 
         <div class="container-sm mt-5">
             <h3 class="text-decoration-underline mb-3">List</h3>
-            <table class="table table-secondary table-hover" v-if="todos.length > 0">
+            <table class="table table-secondary table-hover" v-show="todos.length > 0">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -32,12 +32,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="todo in todos">
+                  <tr v-for="todo in todos" v-if="!todo.isDone">
                     <th scope="row">{{ todo.id }}</th>
                     <td>{{ todo.task }}</td>
                     <td class="container-lg">
-                        <button type="button" class="btn btn-primary" v-if>Done</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-primary" @click="completeTodo(todo)">Done</button>
+                        <button type="button" class="btn btn-danger" @click="deleteTodo(todo)">Delete</button>
                     </td>
                   </tr>
                 </tbody>
@@ -46,9 +46,9 @@
 
         <div class="container-sm mt-5">
             <h3 class="text-decoration-underline mb-3">Completed</h3>
-            <!--<ul v-for="" v-if="">
-                <li class="text-decoration-line-through">{{  }}</li>
-            </ul>-->
+            <ul v-if="todo.isDone" v-for="todo in todos">
+                <li class="text-decoration-line-through">{{ todo.task }}</li>
+            </ul>
         </div>
     </section>
     
@@ -68,7 +68,18 @@
                     this.todos.push({
                         id: ++this.id,
                         task: inputElement.value,
+                        isDone: false,
                     });
+                    inputElement.value = '';
+                },
+                completeTodo(todo) {
+                    todo.isDone = true;
+                },
+                deleteTodo(todo) {
+                    const index = this.todos.indexOf(todo);
+                    if (index > -1) {
+                        this.todos.splice(index, 1);
+                    }
                 }
             }
         });
